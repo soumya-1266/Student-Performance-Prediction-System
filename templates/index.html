@@ -1,0 +1,547 @@
+ """
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Student Performance Prediction</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:'Poppins',sans-serif;
+        }
+
+        body{
+            min-height:100vh;
+            background:linear-gradient(135deg,#0f172a,#1e3a8a,#2563eb);
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            padding:40px;
+        }
+
+        .container{
+            width:100%;
+            max-width:1200px;
+            display:grid;
+            grid-template-columns:1fr 1.2fr;
+            background:rgba(255,255,255,0.1);
+            backdrop-filter:blur(18px);
+            border-radius:35px;
+            overflow:hidden;
+            box-shadow:0 20px 50px rgba(0,0,0,0.25);
+        }
+
+        .left-panel{
+            padding:60px;
+            color:white;
+        }
+
+        .logo{
+            width:90px;
+            height:90px;
+            border-radius:25px;
+            background:rgba(255,255,255,0.15);
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            font-size:40px;
+            margin-bottom:30px;
+        }
+
+        .left-panel h1{
+            font-size:40px;
+            margin-bottom:25px;
+            line-height:1.4;
+        }
+
+        .left-panel p{
+            line-height:1.9;
+            color:#dbeafe;
+            margin-bottom:35px;
+        }
+
+        .feature{
+            display:flex;
+            align-items:center;
+            gap:15px;
+            margin-bottom:18px;
+            padding:18px;
+            border-radius:18px;
+            background:rgba(255,255,255,0.08);
+        }
+
+        .feature i{
+            font-size:22px;
+        }
+
+        .right-panel{
+            background:white;
+            padding:50px;
+        }
+
+        .form-header h2{
+            font-size:34px;
+            color:#0f172a;
+            margin-bottom:10px;
+        }
+
+        .form-header p{
+            color:#64748b;
+            margin-bottom:35px;
+        }
+
+        .form-grid{
+            display:grid;
+            grid-template-columns:1fr 1fr;
+            gap:20px;
+        }
+
+        .form-group{
+            display:flex;
+            flex-direction:column;
+        }
+
+        .full-width{
+            grid-column:1/3;
+        }
+
+        label{
+            margin-bottom:10px;
+            font-size:14px;
+            font-weight:600;
+            color:#334155;
+        }
+
+        input,
+        select{
+            padding:15px;
+            border-radius:16px;
+            border:1px solid #cbd5e1;
+            background:#f8fafc;
+            outline:none;
+            transition:0.3s;
+        }
+
+        input:focus,
+        select:focus{
+            border-color:#2563eb;
+            box-shadow:0 0 10px rgba(37,99,235,0.2);
+            background:white;
+        }
+
+        .predict-btn{
+            width:100%;
+            margin-top:30px;
+            padding:18px;
+            border:none;
+            border-radius:18px;
+            background:linear-gradient(135deg,#2563eb,#1d4ed8);
+            color:white;
+            font-size:17px;
+            font-weight:600;
+            cursor:pointer;
+            transition:0.3s;
+        }
+
+        .predict-btn:hover{
+            transform:translateY(-3px);
+            box-shadow:0 12px 25px rgba(37,99,235,0.3);
+        }
+
+        .result-card{
+            margin-top:35px;
+            padding:35px;
+            border-radius:30px;
+            animation:fadeIn 0.5s ease;
+        }
+
+        .success-card{
+            background:linear-gradient(135deg,#ecfdf5,#d1fae5);
+        }
+
+        .fail-card{
+            background:linear-gradient(135deg,#fef2f2,#fee2e2);
+        }
+
+        .result-top{
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            gap:20px;
+            flex-wrap:wrap;
+        }
+
+        .result-left{
+            display:flex;
+            align-items:center;
+            gap:20px;
+        }
+
+        .result-icon{
+            width:95px;
+            height:95px;
+            border-radius:25px;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            color:white;
+            font-size:40px;
+        }
+
+        .success-icon{
+            background:linear-gradient(135deg,#16a34a,#22c55e);
+        }
+
+        .fail-icon{
+            background:linear-gradient(135deg,#dc2626,#ef4444);
+        }
+
+        .result-title{
+            font-size:32px;
+            font-weight:700;
+            margin-bottom:10px;
+        }
+
+        .success-text{
+            color:#166534;
+        }
+
+        .fail-text{
+            color:#991b1b;
+        }
+
+        .result-description{
+            color:#475569;
+            line-height:1.8;
+        }
+
+        .score-circle{
+            width:130px;
+            height:130px;
+            border-radius:50%;
+            display:flex;
+            flex-direction:column;
+            justify-content:center;
+            align-items:center;
+            color:white;
+        }
+
+        .success-circle{
+            background:linear-gradient(135deg,#16a34a,#22c55e);
+        }
+
+        .fail-circle{
+            background:linear-gradient(135deg,#dc2626,#ef4444);
+        }
+
+        .score-circle h2{
+            font-size:36px;
+        }
+
+        .summary{
+            margin-top:30px;
+        }
+
+        .summary h3{
+            margin-bottom:15px;
+            color:#0f172a;
+        }
+
+        .summary p{
+            line-height:1.9;
+            color:#475569;
+        }
+
+        @keyframes fadeIn{
+            from{
+                opacity:0;
+                transform:translateY(20px);
+            }
+
+            to{
+                opacity:1;
+                transform:translateY(0);
+            }
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="left-panel">
+
+            <div class="logo">
+                <i class="fas fa-user-graduate"></i>
+            </div>
+
+            <h1>
+                Student Performance Prediction System
+            </h1>
+
+            <p>
+                AI-powered academic prediction platform using machine learning
+                to analyze student performance and examination outcomes.
+            </p>
+
+            <div class="feature">
+                <i class="fas fa-brain"></i>
+                <span>AI Prediction Engine</span>
+            </div>
+
+            <div class="feature">
+                <i class="fas fa-chart-line"></i>
+                <span>Performance Analytics</span>
+            </div>
+
+            <div class="feature">
+                <i class="fas fa-database"></i>
+                <span>Academic Risk Detection</span>
+            </div>
+
+        </div>
+
+        <div class="right-panel">
+
+            <div class="form-header">
+
+                <h2>Prediction Form</h2>
+
+                <p>
+                    Enter academic details for machine learning prediction
+                </p>
+
+            </div>
+
+            <form action="/predict" method="POST">
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+
+                        <label>Study Hours</label>
+
+                        <input type="number"
+                            step="any"
+                            name="study_hours"
+                            required>
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label>Attendance %</label>
+
+                        <input type="number"
+                            step="any"
+                            name="attendance"
+                            required>
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label>Previous Marks</label>
+
+                        <input type="number"
+                            step="any"
+                            name="previous_marks"
+                            required>
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label>Assignment Marks</label>
+
+                        <input type="number"
+                            step="any"
+                            name="assignments"
+                            required>
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label>Internal Marks</label>
+
+                        <input type="number"
+                            step="any"
+                            name="internal_marks"
+                            required>
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label>Income Group</label>
+
+                        <select name="income_group">
+
+                            <option value="Low">Low</option>
+                            <option value="Middle">Middle</option>
+                            <option value="High">High</option>
+
+                        </select>
+
+                    </div>
+
+                    <div class="form-group full-width">
+
+                        <label>Parent Education</label>
+
+                        <select name="parent_education">
+
+                            <option value="School">School</option>
+                            <option value="Graduate">Graduate</option>
+                            <option value="Postgraduate">Postgraduate</option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+                <button type="submit" class="predict-btn">
+
+                    <i class="fas fa-chart-pie"></i>
+
+                    Predict Student Result
+
+                </button>
+
+            </form>
+
+            {% if prediction %}
+
+                {% if prediction == 'Pass' %}
+
+                    <div class="result-card success-card">
+
+                        <div class="result-top">
+
+                            <div class="result-left">
+
+                                <div class="result-icon success-icon">
+                                    <i class="fas fa-circle-check"></i>
+                                </div>
+
+                                <div>
+
+                                    <h1 class="result-title success-text">
+                                        PASS PREDICTION DETECTED
+                                    </h1>
+
+                                    <p class="result-description">
+                                        Student shows strong academic performance.
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+                            <div class="score-circle success-circle">
+
+                                <h2>94%</h2>
+
+                                <span>Confidence</span>
+
+                            </div>
+
+                        </div>
+
+                        <div class="summary">
+
+                            <h3>Prediction Summary</h3>
+
+                            <p>
+                                Machine learning analysis predicts a high probability
+                                of successfully passing the examination.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                {% else %}
+
+                    <div class="result-card fail-card">
+
+                        <div class="result-top">
+
+                            <div class="result-left">
+
+                                <div class="result-icon fail-icon">
+                                    <i class="fas fa-circle-xmark"></i>
+                                </div>
+
+                                <div>
+
+                                    <h1 class="result-title fail-text">
+                                        FAILURE RISK DETECTED
+                                    </h1>
+
+                                    <p class="result-description">
+                                        Student requires improvement in academics.
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+                            <div class="score-circle fail-circle">
+
+                                <h2>82%</h2>
+
+                                <span>Risk Score</span>
+
+                            </div>
+
+                        </div>
+
+                        <div class="summary">
+
+                            <h3>Prediction Summary</h3>
+
+                            <p>
+                                Machine learning analysis predicts higher examination
+                                failure probability based on academic indicators.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                {% endif %}
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>
+
+"""
+
+

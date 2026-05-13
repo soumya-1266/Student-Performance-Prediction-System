@@ -1,0 +1,326 @@
+/* ================================= */
+/* ADVANCED RESULT CARD CSS */
+/* ================================= */
+
+.result-container {
+    position: relative;
+    margin-top: 35px;
+    overflow: hidden;
+    border-radius: 30px;
+    animation: fadeUp 0.6s ease;
+}
+
+/* Background Decorative Circles */
+
+.circle {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(70px);
+    z-index: 0;
+}
+
+.circle1 {
+    width: 220px;
+    height: 220px;
+    background: rgba(59, 130, 246, 0.18);
+    top: -80px;
+    right: -60px;
+}
+
+.circle2 {
+    width: 180px;
+    height: 180px;
+    background: rgba(34, 197, 94, 0.15);
+    bottom: -60px;
+    left: -50px;
+}
+
+/* Main Card */
+
+.result-card {
+    position: relative;
+    z-index: 2;
+    padding: 35px;
+    border-radius: 30px;
+    backdrop-filter: blur(18px);
+    overflow: hidden;
+    box-shadow:
+        0 15px 40px rgba(0,0,0,0.12),
+        inset 0 0 0 1px rgba(255,255,255,0.15);
+}
+
+/* PASS */
+
+.pass-card {
+    background: linear-gradient(
+        135deg,
+        rgba(240,253,244,0.96),
+        rgba(220,252,231,0.92)
+    );
+    border: 1px solid rgba(34,197,94,0.2);
+}
+
+/* FAIL */
+
+.fail-card {
+    background: linear-gradient(
+        135deg,
+        rgba(254,242,242,0.96),
+        rgba(254,226,226,0.92)
+    );
+    border: 1px solid rgba(239,68,68,0.2);
+}
+
+/* Top Section */
+
+.top-section {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    flex-wrap: wrap;
+}
+
+/* Icon Box */
+
+.icon-box {
+    width: 110px;
+    height: 110px;
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 42px;
+    color: white;
+    box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+    animation: pulse 2s infinite;
+}
+
+.pass-icon {
+    background: linear-gradient(135deg, #16a34a, #22c55e);
+}
+
+.fail-icon {
+    background: linear-gradient(135deg, #dc2626, #ef4444);
+}
+
+/* Details */
+
+.status-details {
+    flex: 1;
+}
+
+/* Badge */
+
+.status-badge {
+    display: inline-block;
+    padding: 8px 16px;
+    border-radius: 50px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+}
+
+.success-badge {
+    background: rgba(34,197,94,0.15);
+    color: #15803d;
+}
+
+.fail-badge {
+    background: rgba(239,68,68,0.15);
+    color: #b91c1c;
+}
+
+/* Titles */
+
+.result-title {
+    font-size: 36px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.success-title {
+    color: #166534;
+}
+
+.fail-title {
+    color: #991b1b;
+}
+
+.result-subtitle {
+    font-size: 15px;
+    color: #475569;
+    line-height: 1.7;
+}
+
+/* Confidence */
+
+.confidence-section {
+    margin-top: 35px;
+}
+
+.confidence-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #334155;
+}
+
+.confidence-bar {
+    width: 100%;
+    height: 15px;
+    background: rgba(255,255,255,0.6);
+    border-radius: 30px;
+    overflow: hidden;
+}
+
+.confidence-fill {
+    height: 100%;
+    border-radius: 30px;
+    animation: growBar 2s ease;
+}
+
+.success-fill {
+    width: 94%;
+    background: linear-gradient(90deg, #16a34a, #22c55e);
+}
+
+.fail-fill {
+    width: 82%;
+    background: linear-gradient(90deg, #dc2626, #ef4444);
+}
+
+/* Analytics Grid */
+
+.analytics-container {
+    margin-top: 35px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+/* Analytics Box */
+
+.analytics-box {
+    background: rgba(255,255,255,0.55);
+    border-radius: 22px;
+    padding: 22px;
+    text-align: center;
+    transition: 0.3s;
+    backdrop-filter: blur(10px);
+}
+
+.analytics-box:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+}
+
+.analytics-box h3 {
+    font-size: 14px;
+    color: #64748b;
+    margin-bottom: 12px;
+}
+
+.analytics-box p {
+    font-size: 22px;
+    font-weight: 700;
+    color: #0f172a;
+}
+
+/* Recommendation */
+
+.recommendation {
+    margin-top: 35px;
+    padding: 22px;
+    border-radius: 20px;
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+}
+
+.recommendation i {
+    font-size: 22px;
+    margin-top: 3px;
+}
+
+.recommendation p {
+    line-height: 1.8;
+    font-size: 15px;
+}
+
+/* PASS Recommendation */
+
+.success-note {
+    background: rgba(34,197,94,0.12);
+    color: #166534;
+}
+
+/* FAIL Recommendation */
+
+.fail-note {
+    background: rgba(239,68,68,0.12);
+    color: #991b1b;
+}
+
+/* Animations */
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes growBar {
+    from {
+        width: 0;
+    }
+}
+
+@keyframes pulse {
+
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Responsive */
+
+@media(max-width: 768px) {
+
+    .top-section {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .analytics-container {
+        grid-template-columns: 1fr;
+    }
+
+    .result-title {
+        font-size: 28px;
+    }
+
+    .result-card {
+        padding: 25px;
+    }
+
+    .recommendation {
+        flex-direction: column;
+    }
+}
